@@ -1,0 +1,8 @@
+.layout__content
+  %h2 Create wallet
+  = form_tag wallets_path, :method => :post do
+    .field
+      %label Wallet address
+      %br/
+      = text_field_tag :wallet_address
+      = button_tag 'Add Wallet', type: :submit, class: "button"

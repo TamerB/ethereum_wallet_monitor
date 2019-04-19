@@ -1,0 +1,7 @@
+%tr.transaction-incoming
+  %td
+    %i.fas.fa-arrow-up
+    Transfer from #{t[:from]}
+    %td #{t[:value]} #{currency}
+    %td #{t[:gas] * t[:gasPrice]} #{currency}
+    %td= time_ago_in_words(Data.new(t[:timeStamp])
