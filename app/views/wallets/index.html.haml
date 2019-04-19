@@ -16,7 +16,7 @@
     - @wallets.each do |w|
       %tr
         %td= w[:wallet]['wallet_address']
-        %td= w[:transactions].length
+        %td= w[:transactions]
         %td #{w[:balance]} ETH
         %td= link_to 'Show', wallet_path(w[:wallet])
 = link_to 'Add Wallet', new_wallet_path, class: 'button'

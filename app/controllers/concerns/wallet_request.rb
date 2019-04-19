@@ -8,7 +8,7 @@ module WalletRequest
       if data['message'] == "OK"
         @wallets_list.each_with_index do |w, index|
           balance = data['result'][index]['balance'].to_f / 1000000000000000000
-          @wallets << {wallet: w, balance: balance, transactions: getTransactions(w.wallet_address)}
+          @wallets << {wallet: w, balance: balance, transactions: getTransactions(w.wallet_address).length}
         end
       end
     rescue

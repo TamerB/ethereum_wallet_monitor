@@ -1,4 +1,6 @@
 class WalletsController < ApplicationController
+  before_action :authenticate_user!
+  include WalletRequest
 
   def index
     @wallets = []
@@ -34,8 +36,7 @@ class WalletsController < ApplicationController
         t['gasPrice'] = t['gasPrice'].to_f * pln / 1000000000000000000
       end
     rescue
-      flash.now[:alert] = "Service not available"
-      redirect_to wallets_path
+      redirect_to authenticated_root_path, flash: {alert: 'Service not available.'}
     end
   end
 
@@ -45,7 +46,7 @@ class WalletsController < ApplicationController
   def create
     begin
       if getWallet(wallet_params[:wallet_address]) != false
-        @wallet = current_user.wallets.create(wallet_params)
+        @wallet = current_user.wallets.find_or_create_by!(wallet_params)
         if @wallet.save
           redirect_to @wallet
         else
@@ -62,9 +63,13 @@ class WalletsController < ApplicationController
   def destroy
     begin
       @wallet = current_user.wallets.find(params[:id])
-      @wallet.destroy
-    ensure
-      redirect_to wallets_path
+      if @wallet.destroy
+        redirect_to authenticated_root_path, flash: {notice: 'Deleted successfully'}
+      else
+        redirect_to authenticated_root_path, flash: {alert: 'Something went wrong'}
+      end
+    rescue
+      redirect_to authenticated_root_path, flash: {alert: 'Something went wrong'}
     end
   end
 
