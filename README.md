@@ -1,5 +1,5 @@
 # Context:
-This application helps users monitor their Ethereum wallets.
+This application is a simulation of Ethereum wallets monitor.
 
 ![app screenshot](https://github.com/exlabs/ruby_take_home_challenge/blob/master/public/repo_screenshot.png)
 
